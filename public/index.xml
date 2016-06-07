@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>John Doe&#39;s blog</title>
+    <link>https://markyjones.github.io/blog/</link>
+    <description>Recent content on John Doe&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 07 May 2014 11:00:01 +0100</lastBuildDate>
+    <atom:link href="https://markyjones.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Fault tolerance</title>
+      <link>https://markyjones.github.io/blog/post/The%20Circuit%20Breaker/</link>
+      <pubDate>Wed, 07 May 2014 11:00:01 +0100</pubDate>
+      
+      <guid>https://markyjones.github.io/blog/post/The%20Circuit%20Breaker/</guid>
+      <description>
+
+&lt;p&gt;One of my favourite talks from Qcon this year was Fault tolerance made easy by Uwe Friedrichsen. Uwe&amp;rsquo;s talk about fault tolerance had a big impact on me (a similar presentation can be seen &lt;a href=&#34;https://youtu.be/lc_APy75e6o&#34;&gt;here&lt;/a&gt; and I implore you to watch it).&lt;/p&gt;
+
+&lt;p&gt;Uwe&amp;rsquo;s presentation was largely based around the book Release It! which I have since picked up to read myself. I am only half way through and already I would state this is in my top 3 professional books.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.amazon.co.uk/gp/product/0978739213/ref=as_li_tl?ie=UTF8&amp;amp;camp=1634&amp;amp;creative=6738&amp;amp;creativeASIN=0978739213&amp;amp;linkCode=as2&amp;amp;tag=marblo03-21&#34;&gt;&lt;img src=&#34;http://ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;amp;ASIN=0978739213&amp;amp;Format=_SL160_&amp;amp;ID=AsinImage&amp;amp;MarketPlace=GB&amp;amp;ServiceVersion=20070822&amp;amp;WS=1&amp;amp;tag=marblo03-21&#34; alt=&#34;Purchace Release It!&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The key thing from both the talk and the book is that systems will fail and that they will perform very differently in production compared to how they performed in a functional or a load test environment. The emphasis is therefore on how build our systems to react to that failure in sensible ways. There are patterns and anti-patterns described in the books. The 2 taster examples below are simple ones to give you a quick flavour&amp;hellip;&lt;/p&gt;
+
+&lt;h2 id=&#34;the-circuit-breaker&#34;&gt;The Circuit Breaker&lt;/h2&gt;
+
+&lt;p&gt;Take a moderatly high throughput environment ~500,000 requests per minute (around ~8,000 requests per second) to the database&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;Your database is down. How does your application react? Well it desperately and repeatedly attempts to bludgeon the database into giving it a connection, meanwhile almost every thread on the web server is blocked waiting on failed connection responses from the DB server, by which time you probably don&amp;rsquo;t even have the resources left even to serve an error page.&lt;/p&gt;
+
+&lt;p&gt;What if the first bit of code to have received a SQL connection exception decided to &amp;ldquo;warn&amp;rdquo; the rest of the code base that the database was erroring? Assuming we get more than n number of exceptions within a period of time why not collectively agree to &amp;ldquo;break the circuit&amp;rdquo;, then agree to retry again after a period of time?&lt;/p&gt;
+
+&lt;p&gt;This gives the system trying to recover a respite, it gives the application server instant feedback to inform the user (rather than waiting for time outs) and it stops the application server chewing up resources that could be spent serving other applications that could be working.&lt;/p&gt;
+
+&lt;p&gt;The database here is just an example this could be anything external to the calling code and I think this pattern should be widely implemented.  &lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c#&#34;&gt;const int numberOfFailedAttempts = 2;
+
+var policy = Policy
+  .Handle&amp;lt;SqlException&amp;gt;(ex =&amp;gt; ex.Number == ????)
+  .CircuitBreaker(numberOfFailedAttempts,
+TimeSpan.FromMinutes(1));
+
+policy.Execute(() =&amp;gt; CallDatabase());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  &lt;/p&gt;
+
+&lt;h2 id=&#34;limited-retries&#34;&gt;Limited Retries&lt;/h2&gt;
+
+&lt;p&gt;Handling transient failures. Take our code calling an external system like a partners API. We fail the first time but want to try again.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c#&#34;&gt;var policy = Policy
+              .Handle&amp;lt;DivideByZeroException&amp;gt;()
+              .WaitAndRetry(new[]
+              {
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(2),
+                TimeSpan.FromSeconds(3)
+              });
+
+policy.Execute(() =&amp;gt; DoSomething());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;others&#34;&gt;Others&lt;/h2&gt;
+
+&lt;p&gt;I also see value in other patterns like &lt;em&gt;Shed Load&lt;/em&gt;, Netflix gets clever with this and has ideas of capacity and deliberately sends errors back to users when capacity is breached. The &lt;em&gt;Fall Back&lt;/em&gt; is where a failure on a response would mean invoking another function like retrieving a value from a cache - the theory being stale data is better than no data when a service is down.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://camo.githubusercontent.com/ab21cec6ca97aae3479beed850b448d67d311f1e/68747470733a2f2f7261772e6769746875622e636f6d2f4170702d764e6578742f506f6c6c792f6d61737465722f506f6c6c792e706e67&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;What tools are there for this? Well the examples I have used above are in a tool called &lt;a href=&#34;https://github.com/michael-wolfenden/Polly&#34;&gt;Polly&lt;/a&gt; and the daddy of libraries is &lt;a href=&#34;https://github.com/Netflix/Hystrix&#34;&gt;Hystrix&lt;/a&gt; a Netflix product whose stated goal is:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Hystrix is a latency and fault tolerance library designed to isolate points of access to remote systems, services and 3rd party libraries, stop cascading failure and enable resilience in complex distributed systems where failure is inevitable.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;There is an immature port to .NET of Hystrix &lt;a href=&#34;https://hystrixnet.codeplex.com/&#34;&gt;here&lt;/a&gt; and I would love for this to develop further but it doesn&amp;rsquo;t look overly promising at the moment the project appears to be dead.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://camo.githubusercontent.com/e871b5d002a9699e7a2d9fa0178af5c72f0743e0/68747470733a2f2f6e6574666c69782e6769746875622e636f6d2f487973747269782f696d616765732f687973747269782d6c6f676f2d7461676c696e652d3835302e706e67&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Polly covers a lot of the simpler patterns, it is light weight and is a great tool.&lt;/p&gt;
+
+&lt;p&gt;I would love for everyone to consider the book &amp;ldquo;Release It&amp;rdquo; as one for their reading list; however, failing that take a minute to study the &lt;a href=&#34;http://qconlondon.com/dl/qcon-london-2014/slides/UweFriedrichsen_FaultToleranceMadeEasyAHeadStartToResilientSoftwareDesign.pdf&#34;&gt;slides&lt;/a&gt; and check out the documentation for &lt;a href=&#34;https://github.com/Netflix/Hystrix/wiki&#34;&gt;Hystrix&lt;/a&gt; this stuff really does matter any highly available system.&lt;/p&gt;
+
+&lt;p&gt;If nothing else, next time you write a feature ask yourself &amp;ldquo;what happens when this dependency fails&amp;rdquo;? because in complex systems failure is inevitable and we need to avoid cascading failures and wasting server resources when it happens.  &lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
