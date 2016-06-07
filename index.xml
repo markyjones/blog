@@ -91,10 +91,10 @@ policy.Execute(() =&amp;gt; DoSomething());
     
     <item>
       <title>Skype attacks IIS</title>
-      <link>https://markyjones.github.io/blog/post/Skype%20attacks%20IIS%20/</link>
+      <link>https://markyjones.github.io/blog/post/Skype%20attacks%20IIS/</link>
       <pubDate>Fri, 01 Jun 2012 11:00:01 +0100</pubDate>
       
-      <guid>https://markyjones.github.io/blog/post/Skype%20attacks%20IIS%20/</guid>
+      <guid>https://markyjones.github.io/blog/post/Skype%20attacks%20IIS/</guid>
       <description>&lt;p&gt;We are currently developing an IIS hosted .NET application at work. Eventually the whole app will be hosted through HTTPS so for now we are doing a lot of the development this way too, thus our local development servers are configured for HTTPS over port 443.&lt;/p&gt;
 
 &lt;p&gt;One of the devs on the project was setting up their machine yesterday and kept getting the following error in IIS when starting their website: &amp;ldquo;The process cannot access the file because it is being used by another process. (Exception from HRESULT: 0x80070020)&amp;ldquo;.&lt;/p&gt;
