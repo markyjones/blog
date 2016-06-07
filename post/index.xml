@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on John Doe&#39;s blog</title>
-    <link>https://yourdomain.com/post/</link>
+    <link>https://markyjones.github.io/blog/post/</link>
     <description>Recent content in Posts on John Doe&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 07 May 2014 11:00:01 +0100</lastBuildDate>
-    <atom:link href="https://yourdomain.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://markyjones.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Fault tolerance</title>
-      <link>https://yourdomain.com/post/The%20Circuit%20Breaker/</link>
+      <link>https://markyjones.github.io/blog/post/The%20Circuit%20Breaker/</link>
       <pubDate>Wed, 07 May 2014 11:00:01 +0100</pubDate>
       
-      <guid>https://yourdomain.com/post/The%20Circuit%20Breaker/</guid>
+      <guid>https://markyjones.github.io/blog/post/The%20Circuit%20Breaker/</guid>
       <description>
 
 &lt;p&gt;One of my favourite talks from Qcon this year was Fault tolerance made easy by Uwe Friedrichsen. Uwe&amp;rsquo;s talk about fault tolerance had a big impact on me (a similar presentation can be seen &lt;a href=&#34;https://youtu.be/lc_APy75e6o&#34;&gt;here&lt;/a&gt; and I implore you to watch it).&lt;/p&gt;
