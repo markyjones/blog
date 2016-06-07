@@ -1,0 +1,174 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Marks blog</title>
+        <meta name="author">
+        <meta name="description" content="Technical thoughts and musings.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="generator" content="Hugo 0.16" />
+          <link href="https://markyjones.github.io/blog/post/index.xml" rel="alternate" type="application/rss+xml" title="Marks blog" />
+          <link href="https://markyjones.github.io/blog/post/index.xml" rel="feed" type="application/rss+xml" title="Marks blog" />
+        <link href='//fonts.googleapis.com/css?family=Roboto:400,300,700|Noto+Serif:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://markyjones.github.io/blog/css/styles.css">
+        <link rel="icon" href="https://markyjones.github.io/blog/favicon.ico">
+        <link rel="apple-touch-icon" href="https://markyjones.github.io/blog/apple-touch-icon.png" />
+        <link rel="stylesheet" href="https://markyjones.github.io/blog/css/highlightjs/monokai.css">
+        <script src="https://markyjones.github.io/blog/js/vendor/modernizr-2.8.0.min.js"></script>
+        <style>
+        .site-header h2 .logo {
+        background: url(https://markyjones.github.io/blog/img/desk.jpg) no-repeat 0 0;
+        }
+        @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+          .site-header h2 .logo {
+            background-image: url(https://markyjones.github.io/blog/img/desk.jpg);
+        }}
+       .site-header {
+         background: #2a373d url(https://markyjones.github.io/blog/img/desk.jpg) no-repeat center center;
+         z-index: -1;
+        }
+        </style>
+    </head>
+    <body>
+        
+        <header class="site-header">
+          <div class="transparent-layer">
+              <h2>Marks blog</h2>
+          </div>
+        </header>
+
+
+<div class="container clearfix">
+    <main role="main" class="content">
+        <article class="post">
+            <a class="btn home" href="https://markyjones.github.io/blog/" title="">&laquo; </a>
+            
+<h1><a href="https://markyjones.github.io/blog/post/Skype%20attacks%20IIS%20/" title="Skype attacks IIS">Skype attacks IIS</a></h1>
+
+<footer class="post-info"> <span class="post-meta"><time datetime="2012.06.01">2012.06.01</time>
+
+</span>
+</footer>
+
+            <p>We are currently developing an IIS hosted .NET application at work. Eventually the whole app will be hosted through HTTPS so for now we are doing a lot of the development this way too, thus our local development servers are configured for HTTPS over port 443.</p>
+
+<p>One of the devs on the project was setting up their machine yesterday and kept getting the following error in IIS when starting their website: &ldquo;The process cannot access the file because it is being used by another process. (Exception from HRESULT: 0x80070020)&ldquo;.</p>
+
+<p><img src="/img/skype attacks IIS/error.png" alt="Untitled" /></p>
+
+<p>We had to find which process was doing the blocking:</p>
+
+<pre><code class="language-c#">c:\&gt; netstat -ao
+</code></pre>
+
+<p>Gives us a list of all active connections. Look in the local address column for something on port 443 e.g. &ldquo;0.0.0.0:443&rdquo; grab the PID from the rightmost column in my case 2384.</p>
+
+<p>Gives us a list of all active connections. Look in the local address column for something on port 443 e.g. &ldquo;0.0.0.0:443&rdquo; grab the PID from the rightmost column in my case 2384.
+Now grab the name of the culprit:</p>
+
+<pre><code class="language-c#">c:\&gt; tasklist /fi &quot;PID eq 2384&quot;
+
+</code></pre>
+
+<pre><code class="language-c#">Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+Skype.exe                     2384 Console                    1    104,180 K
+</code></pre>
+
+<p>So go KILL that process and now IIS should be happy again.</p>
+
+            <ul class="share-buttons">
+    <li></li>
+    <li>
+        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fmarkyjones.github.io%2fblog%2fpost%2fSkype%2520attacks%2520IIS%2520%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title=""></a>
+    </li>
+    <li>
+        <a class="icon-twitter" href="https://twitter.com/share?text=Skype%20attacks%20IIS&amp;url=https%3a%2f%2fmarkyjones.github.io%2fblog%2fpost%2fSkype%2520attacks%2520IIS%2520%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title=""></a>
+    </li>
+    <li>
+        <a class="icon-gplus" href="https://plus.google.com/share?url=https%3a%2f%2fmarkyjones.github.io%2fblog%2fpost%2fSkype%2520attacks%2520IIS%2520%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title=""></a>
+    </li>
+    <li>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fmarkyjones.github.io%2fblog%2fpost%2fSkype%2520attacks%2520IIS%2520%2f&title=Skype%20attacks%20IIS" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title=""></a>
+    </li>
+</ul>
+
+        </article>
+        <div class="comments">
+            <h3></h3>
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'markyjones';
+    var disqus_identifier = 'https:\/\/markyjones.github.io\/blog\/post\/Skype%20attacks%20IIS%20\/';
+    var disqus_title = 'Skype attacks IIS';
+    var disqus_url = 'https:\/\/markyjones.github.io\/blog\/post\/Skype%20attacks%20IIS%20\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </main>
+    <aside class="author">
+  <img class="profile-image" src="https://s.gravatar.com/avatar/2a13fdb10b9fa4c45dcf70a399addda2?s=80" alt="Mark Jones " />
+  <p class="name">
+  <strong>Mark Jones </strong></p>
+  <p class="address">Winchester</p>
+  <p class="link"></p>
+  <ul class="social">
+    
+<li><a href="//twitter.com/markyjones" class="icon-twitter" target="_blank" title="Twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//github.com/markjones" class="icon-github" target="_blank" title="Github"></a></li>
+
+
+
+
+<li><a href="https://markyjones.github.io/blog/post/index.xml" class="icon-rss" target="_blank" title="RSS"></a></li>
+
+  </ul>
+  <br><br>
+</aside>
+
+</div>
+
+<footer class="main-footer">
+  <div class="container clearfix">
+        <a class="icon-rss" href="https://markyjones.github.io/blog/post/index.xml" title="RSS"></a>
+        <p>&copy; 2016 &middot; Powered by <a href="http://gohugo.io">Hugo</a>.</p>
+  </div>
+</footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>window.jQuery || document.write('<script src="https:\/\/markyjones.github.io\/blog\/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="https://markyjones.github.io/blog/js/plugins.js"></script>
+
+<!-- Google Analytics -->
+<script>
+  var _gaq=[['_setAccount','UA-31482130-2'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
