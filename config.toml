@@ -1,6 +1,6 @@
 baseurl = "https://markyjones.github.io/blog/"
 languageCode = "en-us"
-title = "John Doe's blog"
+title = "Marks blog"
 # Define how many pages appear per site
 paginate = 10
 # Enable comments powered by Disqus by entering your disqus shortname
@@ -9,7 +9,7 @@ theme = "hugo-minimalist-theme"
 
 [params]
     site_author = "Mark Jones "
-    site_description = "Marks awsome blog."
+    site_description = "Technical thoughts and musings."
     location = "Winchester"
     # All paths are relative to the baseurl. Put your files
     # somewhere in the static folder.
@@ -19,7 +19,7 @@ theme = "hugo-minimalist-theme"
     copyright = "Powered by [Hugo](http://gohugo.io)."
 
     # Enable gogle analytics by entering your tracking code
-    google_analytics = ""
+    google_analytics = "UA-31482130-2"
 
 [social]
     # Add your social network accounts to the profile section on the left
