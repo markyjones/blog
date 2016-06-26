@@ -3,7 +3,12 @@
   
   <url>
     <loc>https://markyjones.github.io/blog/</loc>
-    <lastmod>2014-05-07T11:00:01+01:00</lastmod>
+    <lastmod>2016-06-26T11:00:01+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://markyjones.github.io/blog/post/Installing%20Kong%20for%20development%20on%20Mac/</loc>
+    <lastmod>2016-06-26T11:00:01+01:00</lastmod>
   </url>
   
   <url>
@@ -12,7 +17,7 @@
   </url>
   
   <url>
-    <loc>https://markyjones.github.io/blog/post/Skype%20attacks%20IIS%20/</loc>
+    <loc>https://markyjones.github.io/blog/post/Skype%20attacks%20IIS/</loc>
     <lastmod>2012-06-01T11:00:01+01:00</lastmod>
   </url>
   

@@ -6,8 +6,117 @@
     <description>Recent content on Marks blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 07 May 2014 11:00:01 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jun 2016 11:00:01 +0100</lastBuildDate>
     <atom:link href="https://markyjones.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Installing Kong for development on Mac</title>
+      <link>https://markyjones.github.io/blog/post/Installing%20Kong%20for%20development%20on%20Mac/</link>
+      <pubDate>Sun, 26 Jun 2016 11:00:01 +0100</pubDate>
+      
+      <guid>https://markyjones.github.io/blog/post/Installing%20Kong%20for%20development%20on%20Mac/</guid>
+      <description>&lt;p&gt;By far the easiest way I have found to get Mashape&amp;rsquo;s Kong installed for is &lt;a href=&#34;https://github.com/Mashape/docker-kong&#34;&gt;via Docker&lt;/a&gt;. This takes seconds and is about as pain free any install can get. How about installing to develop Kong though?&lt;/p&gt;
+
+&lt;p&gt;I began following the excellent HelloWorld plugin guide &lt;a href=&#34;http://streamdata.io/blog/developing-an-helloworld-kong-plugin/&#34;&gt;here&lt;/a&gt; and I found that the environment setup steps in the article a little light and although I have seen Vagrent scripts &lt;a href=&#34;https://github.com/Mashape/kong-vagrant/blob/master/README.md&#34;&gt;here&lt;/a&gt; and other guides like &lt;a href=&#34;https://gist.github.com/nijikokun/189f84226f092dccd359&#34;&gt;this&lt;/a&gt; Mac OS installer script I believe the best route - as with most Mac installs - was directly via the Brew install approach &lt;a href=&#34;https://github.com/Mashape/homebrew-kong/blob/master/README.md&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Marco Palladino (aka thefosk and founder of Mashape) hosts a gist for Linux and Mac installation &lt;a href=&#34;https://gist.github.com/thefosk/75d2d718ceba66169d0e&#34;&gt;here&lt;/a&gt; but if you look at the script it essentially just uses Brew if OSX is detected there is also a detailed debugging on Kong guide &lt;a href=&#34;http://lua-programming.blogspot.co.uk/2015/12/how-to-debug-kong-plugins-on-windows.html?m=1&#34;&gt;here&lt;/a&gt; which covers using this &lt;a href=&#34;https://github.com/thibaultCha/homebrew-kong/blob/master/README.md&#34;&gt;Brew&lt;/a&gt; when using OSX although using the &lt;code&gt;$ brew install kong --with-cassandra&lt;/code&gt; option.&lt;/p&gt;
+
+&lt;p&gt;So I found that (presuming you have openssl installed via Brew)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ brew update
+$ brew tap mashape/kong
+$ brew install kong
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Blows up with&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Error: Failed installing dependency: &lt;a href=&#34;https://luarocks.org/luacrypto-0.3.2-1.src.rock&#34;&gt;https://luarocks.org/luacrypto-0.3.2-1.src.rock&lt;/a&gt; - Could not find header file for OPENSSL
+No file openssl/evp.h in /usr/local/include
+No file openssl/evp.h in /usr/include
+You may have to install OPENSSL in your system and/or pass OPENSSL_DIR or OPENSSL_INCDIR to the luarocks command.
+Example: luarocks install luacrypto OPENSSL_DIR=/usr/local&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;the &lt;code&gt;make install&lt;/code&gt; build step failed due to an OpenSSL error&amp;hellip; Some Googling later I came up with&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ brew link --force openssl
+$ brew install kong
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Only to notice it was &lt;strong&gt;already&lt;/strong&gt; a known troubleshooting step(!) on the official brew &lt;a href=&#34;https://github.com/Mashape/homebrew-kong&#34;&gt;readme&lt;/a&gt; (note to self read the full install steps first!)&lt;/p&gt;
+
+&lt;p&gt;In order to start Kong I found that it was missing a Kong.yml locally&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ kong start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;[ERR] No configuration file at: /etc/kong/kong.yml&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The script &lt;a href=&#34;http://m.blog.csdn.net/article/details?id=49895497&#34;&gt;here&lt;/a&gt; does solves this task e.g. Via symbolic link&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo mkdir /etc/kong
+$ sudo ln -s /usr/local/lib/luarocks/rocks/kong/0.8.3-0/conf/kong.yml /etc/kong/kong.yml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or just clone it&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo mkdir /etc/kong
+$ sudo ln -s /usr/local/lib/luarocks/rocks/kong/0.8.3-0/conf/kong.yml
+cp /usr/local/lib/luarocks/rocks/kong/0.5.2-1/conf/kong.yml /etc/kong/kong.yml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Start it again&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ kong start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;[ERR] All hosts tried for query failed. 127.0.0.1:9042: connection refused for socket with peer 127.0.0.1:9042.
+[ERR] Could not start Kong&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;If you don&amp;rsquo;t have Cassandra running locally or remotely e.g. via docker then get it running and configure your kong.yml appropriately (I personally used docker).&lt;/p&gt;
+
+&lt;p&gt;Now Kong should start&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ kong start
+$ curl http://localhost:8001
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Having managed to now build and install Kong I was able to follow through the Kong &lt;a href=&#34;http://streamdata.io/blog/developing-an-helloworld-kong-plugin/&#34;&gt;HelloWorld&lt;/a&gt; plugin tutorial up to the point of testing. Running&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/Mashape/kong.git
+$ make test
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;gave me an error about &lt;code&gt;@busted&lt;/code&gt; being missing&amp;hellip;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;make: busted: No such file or directory
+make: *** [test] Error 1&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;a quick Google gave me a boy band…(Hmmm) after a head slap moment I realised it was a Lua module for unit testing &lt;a href=&#34;http://olivinelabs.com/busted/&#34;&gt;here&lt;/a&gt; and I simply needed to install it like so.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ luarocks install busted
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next small hurdle is that the tests require a Kong_TEST.yml file in the root folder - simply cloning the existing Kong.yml file sufficed (assuming you are in the root of the source code)&amp;hellip;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cp ./kong.yml ./kong_TEST.yml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
+173 successes / 0 failures / 0 errors / 0 pending : 0.908241 seconds&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Now I was up and running with compile, install and testing and could get on with the HelloWorld blog article and also look at the debuging in the other &lt;a href=&#34;http://lua-programming.blogspot.co.uk/2015/12/how-to-debug-kong-plugins-on-windows.html?m=1&#34;&gt;article&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Fault tolerance</title>
@@ -91,10 +200,10 @@ policy.Execute(() =&amp;gt; DoSomething());
     
     <item>
       <title>Skype attacks IIS</title>
-      <link>https://markyjones.github.io/blog/post/Skype%20attacks%20IIS%20/</link>
+      <link>https://markyjones.github.io/blog/post/Skype%20attacks%20IIS/</link>
       <pubDate>Fri, 01 Jun 2012 11:00:01 +0100</pubDate>
       
-      <guid>https://markyjones.github.io/blog/post/Skype%20attacks%20IIS%20/</guid>
+      <guid>https://markyjones.github.io/blog/post/Skype%20attacks%20IIS/</guid>
       <description>&lt;p&gt;We are currently developing an IIS hosted .NET application at work. Eventually the whole app will be hosted through HTTPS so for now we are doing a lot of the development this way too, thus our local development servers are configured for HTTPS over port 443.&lt;/p&gt;
 
 &lt;p&gt;One of the devs on the project was setting up their machine yesterday and kept getting the following error in IIS when starting their website: &amp;ldquo;The process cannot access the file because it is being used by another process. (Exception from HRESULT: 0x80070020)&amp;ldquo;.&lt;/p&gt;
