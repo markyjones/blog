@@ -64,8 +64,7 @@ $ sudo ln -s /usr/local/lib/luarocks/rocks/kong/0.8.3-0/conf/kong.yml /etc/kong/
 &lt;p&gt;Or just clone it&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ sudo mkdir /etc/kong
-$ sudo ln -s /usr/local/lib/luarocks/rocks/kong/0.8.3-0/conf/kong.yml
-cp /usr/local/lib/luarocks/rocks/kong/0.5.2-1/conf/kong.yml /etc/kong/kong.yml
+$ sudo cp /usr/local/lib/luarocks/rocks/kong/0.8.3-0/conf/kong.yml /etc/kong/kong.yml
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Start it again&lt;/p&gt;
