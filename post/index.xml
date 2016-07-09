@@ -6,8 +6,18 @@
     <description>Recent content in Posts on Marks blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 26 Jun 2016 11:00:01 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 09 Jul 2016 19:11:00 +0000</lastBuildDate>
     <atom:link href="https://markyjones.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Test</title>
+      <link>https://markyjones.github.io/blog/post/test/</link>
+      <pubDate>Sat, 09 Jul 2016 19:11:00 +0000</pubDate>
+      
+      <guid>https://markyjones.github.io/blog/post/test/</guid>
+      <description>&lt;p&gt;TESTING&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Installing Kong for development on Mac</title>
@@ -133,7 +143,7 @@ make: *** [test] Error 1&lt;/p&gt;
 
 &lt;p&gt;The key thing from both the talk and the book is that systems will fail and that they will perform very differently in production compared to how they performed in a functional or a load test environment. The emphasis is therefore on how build our systems to react to that failure in sensible ways. There are patterns and anti-patterns described in the books. The 2 taster examples below are simple ones to give you a quick flavour&amp;hellip;&lt;/p&gt;
 
-&lt;h2 id=&#34;the-circuit-breaker&#34;&gt;The Circuit Breaker&lt;/h2&gt;
+&lt;h2 id=&#34;the-circuit-breaker:d693bdafb5e618dde7740d1734d99f57&#34;&gt;The Circuit Breaker&lt;/h2&gt;
 
 &lt;p&gt;Take a moderatly high throughput environment ~500,000 requests per minute (around ~8,000 requests per second) to the database&amp;hellip;&lt;/p&gt;
 
@@ -157,7 +167,7 @@ policy.Execute(() =&amp;gt; CallDatabase());
 
 &lt;p&gt;  &lt;/p&gt;
 
-&lt;h2 id=&#34;limited-retries&#34;&gt;Limited Retries&lt;/h2&gt;
+&lt;h2 id=&#34;limited-retries:d693bdafb5e618dde7740d1734d99f57&#34;&gt;Limited Retries&lt;/h2&gt;
 
 &lt;p&gt;Handling transient failures. Take our code calling an external system like a partners API. We fail the first time but want to try again.&lt;/p&gt;
 
@@ -173,7 +183,7 @@ policy.Execute(() =&amp;gt; CallDatabase());
 policy.Execute(() =&amp;gt; DoSomething());
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;others&#34;&gt;Others&lt;/h2&gt;
+&lt;h2 id=&#34;others:d693bdafb5e618dde7740d1734d99f57&#34;&gt;Others&lt;/h2&gt;
 
 &lt;p&gt;I also see value in other patterns like &lt;em&gt;Shed Load&lt;/em&gt;, Netflix gets clever with this and has ideas of capacity and deliberately sends errors back to users when capacity is breached. The &lt;em&gt;Fall Back&lt;/em&gt; is where a failure on a response would mean invoking another function like retrieving a value from a cache - the theory being stale data is better than no data when a service is down.&lt;/p&gt;
 
