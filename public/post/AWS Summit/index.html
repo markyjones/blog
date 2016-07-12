@@ -44,16 +44,78 @@
         <article class="post">
             <a class="btn home" href="https://markyjones.github.io/blog/" title="">&laquo; </a>
             
-<h1><a href="https://markyjones.github.io/blog/post/AWS%20Summit/" title=""></a></h1>
+<h1><a href="https://markyjones.github.io/blog/post/AWS%20Summit/" title="AWS Summit 2016 London">AWS Summit 2016 London</a></h1>
 
-<footer class="post-info"> <span class="post-meta"><time datetime="0001.01.01">0001.01.01</time>
+<footer class="post-info"> <span class="post-meta"><time datetime="2016.07.07">2016.07.07</time>
 
 </span>
 </footer>
 
-            <p>Last week I attended the AWS Summit in London Excel. The day was a bit of a mixed bag with a fairly slow start in the keynote but some useful bits in the free Hands On session and the breakout sessions later in the afternoon.</p>
+            <p>Last week I attended the AWS Summit in London Excel. The day was a bit of a mixed bag with a fairly slow start in the keynote by Dr. Werner Vogels (Chief Technology Officer, Amazon.com) but some useful bits in the free Hands On session and the breakout sessions later in the afternoon.</p>
 
-<p>As alluded too, the Keynote was a fairly self congratulatory, sales and marketing pitch by AWS but it was their event so fair play to them. I found some aspects interesting including an ucreditable guide on</p>
+<p><strong>Keynote</strong></p>
+
+<p>As alluded too, the Keynote was more of an overview of the AWS  product set punctuated with customer success storys. It was the success story&rsquo;s that I found the most interesting an example of which was a showcase application called <a href="https://teletext.io/">teletext.io</a></p>
+
+<p>Point one, teletext.io it is completely &ldquo;severless&rdquo;, as they say</p>
+
+<blockquote>
+<p>Our API is powered by the AWS API Gateway, Lambda functions and DynamoDB only. We don&rsquo;t operate servers. Not even one.</p>
+</blockquote>
+
+<p>Point two, (on a non AWS/Serverless related note) this is an exciting product. I have being playing around a lot with Static Site Generators (look at <a href="https://www.staticgen.com/">staticgen.com</a>) and have even moved my own blog over to <a href="https://gohugo.io/">hugo</a> hosted (for free) on GitHub Pages. Whilst there are a few CMS style tools for these SSG&rsquo;s like <a href="https://forestry.io/">forestry.io</a>, teletext.io offers localisation and some nice inline editing capabilities. Whilst <a href="https://www.typora.io/">Typora</a> and Hugo are working well for me at the moment I may try have a play with the free usage tier of teletext.io.</p>
+
+<p>Other notes I made included an un-credited (I think) guide on whether you are ready for Micro Services… in a slide entitled &ldquo;Some Signs You Are Not at Microservice Level Yet&rdquo; which was food for thought.</p>
+
+<blockquote>
+<ul>
+<li>Different services do coordinated deployments.</li>
+<li>A change in one service has unexpected consequences of requires a change in other services.</li>
+<li>Services share a persistence store.</li>
+<li>You cannot change your service&rsquo;s persistence tier without anyone caring.</li>
+<li>Engineers need intimate knowledge of the designs and schemas of other teams&rsquo; services.</li>
+</ul>
+</blockquote>
+
+<p>I was reminded of a great quote - <a href="https://en.wikiquote.org/wiki/John_Gall">Gall&rsquo;s Law</a> - The Power of Simplicity&hellip;</p>
+
+<blockquote>
+<p>&ldquo;A complex system that works is invariably found to have evolved from a simple system that worked. A complex system designed from scratch never works and cannot be patched up to make it work. You have to start over, beginning with a working simple system.&rdquo;</p>
+</blockquote>
+
+<p>The Driver and Vehicle Standards Agency <a href="https://www.gov.uk/government/organisations/driver-and-vehicle-standards-agency">DVSA</a> did a talk too talking about some ways they solved their challenges of migrating a legacy PFI purchased MOT solution onto a in house developed application hosted on AWS. Given my wife has recently begun work at HMRC we have been reading a lot about the <a href="https://gds.blog.gov.uk/category/gds/">Government Digital Service</a> and the progressive approach <a href="http://mikebracken.com/">Mike Bracken</a> and teams have introduced. Key takeaways from the DVSA talk was about:</p>
+
+<ul>
+<li>Focus on an MVP first release.</li>
+<li>Embedding Agile Ways of working</li>
+<li>Multi Vendor, Blended Agile Teams</li>
+<li>Internal Service Ownership</li>
+<li>(Yeah and it was a &ldquo;Cloud based scalable solution&rdquo;)</li>
+</ul>
+
+<p><strong>AWS Kinesis</strong></p>
+
+<p>My first breakout session was about <a href="http://docs.aws.amazon.com/streams/latest/dev/introduction.html">AWS Kinesis</a> which featured a customer presentation from the CEO of <a href="http://jampp.com/">jampp</a> who had moved from a Kafka driven architecture to a Kinesis driven one. It was a good session to get a feel for the capabilities of Kinesis.</p>
+
+<p>I made notes about the <a href="http://docs.aws.amazon.com/firehose/latest/dev/writing-with-agents.html">Kinesis agent</a> as a potential option to ship logs from our servers and services and send to AWS ElasticSearch instances, the Kinesis analytics also seemed interesting being about to run realtime queries against the data streams to create wallboards etc.</p>
+
+<p>The throughput jampp was putting through their stack was genuinely very large (many 000/s), the cost comparison to IaaS style Kafka was very favourable to AWS Kinesis and the presenters recommendations on getting the most from Kinesis were interesting.</p>
+
+<p>The presenter covered aspects like how best to distribute data across the Kinisis shards evenly, picking a protocol for the streams (<a href="http://msgpack.org/index.html">MessagePack</a> was jammp&rsquo;s preference), increasing the retention period, and integrations with a whole host of technologies I am off to google(!) e.g. <a href="https://prestodb.io/">PrestoDB</a>, <a href="https://parquet.apache.org/">Parquet</a>, <a href="http://airbnb.io/projects/airflow/">Airflow</a>, <a href="https://github.com/airbnb/airpal">AirPal</a>, <a href="http://jupyter.org/">Jupiter notebooks</a> etc.</p>
+
+<p><strong>Hands on lab</strong></p>
+
+<p>All attendees had an opportunity to complete a hands on lab having booked it in. The lab was provided by <a href="https://qwiklabs.com/">qwikLAB</a> which have a very cool set up. You essentially get given an on demand functional AWS account for the purpose of completing a range of exercises. I chose to complete the &ldquo;Serverless Architectures using Amazon S3 and Amazon SNS with AWS Lambda&rdquo; course.</p>
+
+<p>Overall it was rather good, the material was interesting and got you to traverse a good range of the AWS console, CLI and EC2 features. It did highlight how limited some of the AWS Lambda debugging tools are and the relatively slow development feedback loop lambda has. Some of the steps in the lab were out of date as AWS have altered labels and layout in places but it was easy enough to figure out the way around. I would recommend some of the quikLAB courses for people if they are interested, if like me you often fear of accidental costs on your own AWS instances following tutorials these are a good way to set an absolute celling on costs.</p>
+
+<p><strong>Final Breakout Session</strong></p>
+
+<p>Covered ECS and containerisation. Some interesting talks about how to carry out Blue/Green deployments using ECS and some of the ways to implement service discovery in ECS. They also introduced <a href="https://github.com/remind101/empire">Empire</a> which is an Open Source PaaS built on top of ECS with a Heroku compatible API which is very interesting and worthy of some further research.</p>
+
+<p><strong>Summary</strong></p>
+
+<p>Would I go again? Yes, but I may not rush in for the morning keynote next time and schedule the breakout sessions a little more wisely as all my selections ended up overlapping.</p>
 
             <ul class="share-buttons">
     <li></li>
@@ -61,13 +123,13 @@
         <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fmarkyjones.github.io%2fblog%2fpost%2fAWS%2520Summit%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title=""></a>
     </li>
     <li>
-        <a class="icon-twitter" href="https://twitter.com/share?text=&amp;url=https%3a%2f%2fmarkyjones.github.io%2fblog%2fpost%2fAWS%2520Summit%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title=""></a>
+        <a class="icon-twitter" href="https://twitter.com/share?text=AWS%20Summit%202016%20London&amp;url=https%3a%2f%2fmarkyjones.github.io%2fblog%2fpost%2fAWS%2520Summit%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title=""></a>
     </li>
     <li>
         <a class="icon-gplus" href="https://plus.google.com/share?url=https%3a%2f%2fmarkyjones.github.io%2fblog%2fpost%2fAWS%2520Summit%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title=""></a>
     </li>
     <li>
-        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fmarkyjones.github.io%2fblog%2fpost%2fAWS%2520Summit%2f&title=" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title=""></a>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fmarkyjones.github.io%2fblog%2fpost%2fAWS%2520Summit%2f&title=AWS%20Summit%202016%20London" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title=""></a>
     </li>
 </ul>
 
@@ -78,7 +140,7 @@
 <script type="text/javascript">
     var disqus_shortname = 'markyjones';
     var disqus_identifier = 'https:\/\/markyjones.github.io\/blog\/post\/AWS%20Summit\/';
-    var disqus_title = '';
+    var disqus_title = 'AWS Summit 2016 London';
     var disqus_url = 'https:\/\/markyjones.github.io\/blog\/post\/AWS%20Summit\/';
 
     (function() {
