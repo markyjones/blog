@@ -6,8 +6,82 @@
     <description>Recent content in Posts on Marks blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 26 Jun 2016 11:00:01 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 07 Jul 2016 11:00:01 +0100</lastBuildDate>
     <atom:link href="https://markyjones.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>AWS Summit 2016 London</title>
+      <link>https://markyjones.github.io/blog/post/AWS%20Summit/</link>
+      <pubDate>Thu, 07 Jul 2016 11:00:01 +0100</pubDate>
+      
+      <guid>https://markyjones.github.io/blog/post/AWS%20Summit/</guid>
+      <description>&lt;p&gt;Last week I attended the AWS Summit in London Excel. The day was a bit of a mixed bag with a fairly slow start in the keynote by Dr. Werner Vogels (Chief Technology Officer, Amazon.com) but some useful bits in the free Hands On session and the breakout sessions later in the afternoon.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Keynote&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;As alluded too, the Keynote was more of an overview of the AWS  product set punctuated with customer success storys. It was the success story&amp;rsquo;s that I found the most interesting an example of which was a showcase application called &lt;a href=&#34;https://teletext.io/&#34;&gt;teletext.io&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Point one, teletext.io it is completely &amp;ldquo;severless&amp;rdquo;, as they say&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Our API is powered by the AWS API Gateway, Lambda functions and DynamoDB only. We don&amp;rsquo;t operate servers. Not even one.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Point two, (on a non AWS/Serverless related note) this is an exciting product. I have being playing around a lot with Static Site Generators (look at &lt;a href=&#34;https://www.staticgen.com/&#34;&gt;staticgen.com&lt;/a&gt;) and have even moved my own blog over to &lt;a href=&#34;https://gohugo.io/&#34;&gt;hugo&lt;/a&gt; hosted (for free) on GitHub Pages. Whilst there are a few CMS style tools for these SSG&amp;rsquo;s like &lt;a href=&#34;https://forestry.io/&#34;&gt;forestry.io&lt;/a&gt;, teletext.io offers localisation and some nice inline editing capabilities. Whilst &lt;a href=&#34;https://www.typora.io/&#34;&gt;Typora&lt;/a&gt; and Hugo are working well for me at the moment I may try have a play with the free usage tier of teletext.io.&lt;/p&gt;
+
+&lt;p&gt;Other notes I made included an un-credited (I think) guide on whether you are ready for Micro Services… in a slide entitled &amp;ldquo;Some Signs You Are Not at Microservice Level Yet&amp;rdquo; which was food for thought.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Different services do coordinated deployments.&lt;/li&gt;
+&lt;li&gt;A change in one service has unexpected consequences of requires a change in other services.&lt;/li&gt;
+&lt;li&gt;Services share a persistence store.&lt;/li&gt;
+&lt;li&gt;You cannot change your service&amp;rsquo;s persistence tier without anyone caring.&lt;/li&gt;
+&lt;li&gt;Engineers need intimate knowledge of the designs and schemas of other teams&amp;rsquo; services.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I was reminded of a great quote - &lt;a href=&#34;https://en.wikiquote.org/wiki/John_Gall&#34;&gt;Gall&amp;rsquo;s Law&lt;/a&gt; - The Power of Simplicity&amp;hellip;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;A complex system that works is invariably found to have evolved from a simple system that worked. A complex system designed from scratch never works and cannot be patched up to make it work. You have to start over, beginning with a working simple system.&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The Driver and Vehicle Standards Agency &lt;a href=&#34;https://www.gov.uk/government/organisations/driver-and-vehicle-standards-agency&#34;&gt;DVSA&lt;/a&gt; did a talk too talking about some ways they solved their challenges of migrating a legacy PFI purchased MOT solution onto a in house developed application hosted on AWS. Given my wife has recently begun work at HMRC we have been reading a lot about the &lt;a href=&#34;https://gds.blog.gov.uk/category/gds/&#34;&gt;Government Digital Service&lt;/a&gt; and the progressive approach &lt;a href=&#34;http://mikebracken.com/&#34;&gt;Mike Bracken&lt;/a&gt; and teams have introduced. Key takeaways from the DVSA talk was about:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Focus on an MVP first release.&lt;/li&gt;
+&lt;li&gt;Embedding Agile Ways of working&lt;/li&gt;
+&lt;li&gt;Multi Vendor, Blended Agile Teams&lt;/li&gt;
+&lt;li&gt;Internal Service Ownership&lt;/li&gt;
+&lt;li&gt;(Yeah and it was a &amp;ldquo;Cloud based scalable solution&amp;rdquo;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;AWS Kinesis&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;My first breakout session was about &lt;a href=&#34;http://docs.aws.amazon.com/streams/latest/dev/introduction.html&#34;&gt;AWS Kinesis&lt;/a&gt; which featured a customer presentation from the CEO of &lt;a href=&#34;http://jampp.com/&#34;&gt;jampp&lt;/a&gt; who had moved from a Kafka driven architecture to a Kinesis driven one. It was a good session to get a feel for the capabilities of Kinesis.&lt;/p&gt;
+
+&lt;p&gt;I made notes about the &lt;a href=&#34;http://docs.aws.amazon.com/firehose/latest/dev/writing-with-agents.html&#34;&gt;Kinesis agent&lt;/a&gt; as a potential option to ship logs from our servers and services and send to AWS ElasticSearch instances, the Kinesis analytics also seemed interesting being about to run realtime queries against the data streams to create wallboards etc.&lt;/p&gt;
+
+&lt;p&gt;The throughput jampp was putting through their stack was genuinely very large (many 000/s), the cost comparison to IaaS style Kafka was very favourable to AWS Kinesis and the presenters recommendations on getting the most from Kinesis were interesting.&lt;/p&gt;
+
+&lt;p&gt;The presenter covered aspects like how best to distribute data across the Kinisis shards evenly, picking a protocol for the streams (&lt;a href=&#34;http://msgpack.org/index.html&#34;&gt;MessagePack&lt;/a&gt; was jammp&amp;rsquo;s preference), increasing the retention period, and integrations with a whole host of technologies I am off to google(!) e.g. &lt;a href=&#34;https://prestodb.io/&#34;&gt;PrestoDB&lt;/a&gt;, &lt;a href=&#34;https://parquet.apache.org/&#34;&gt;Parquet&lt;/a&gt;, &lt;a href=&#34;http://airbnb.io/projects/airflow/&#34;&gt;Airflow&lt;/a&gt;, &lt;a href=&#34;https://github.com/airbnb/airpal&#34;&gt;AirPal&lt;/a&gt;, &lt;a href=&#34;http://jupyter.org/&#34;&gt;Jupiter notebooks&lt;/a&gt; etc.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Hands on lab&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;All attendees had an opportunity to complete a hands on lab having booked it in. The lab was provided by &lt;a href=&#34;https://qwiklabs.com/&#34;&gt;qwikLAB&lt;/a&gt; which have a very cool set up. You essentially get given an on demand functional AWS account for the purpose of completing a range of exercises. I chose to complete the &amp;ldquo;Serverless Architectures using Amazon S3 and Amazon SNS with AWS Lambda&amp;rdquo; course.&lt;/p&gt;
+
+&lt;p&gt;Overall it was rather good, the material was interesting and got you to traverse a good range of the AWS console, CLI and EC2 features. It did highlight how limited some of the AWS Lambda debugging tools are and the relatively slow development feedback loop lambda has. Some of the steps in the lab were out of date as AWS have altered labels and layout in places but it was easy enough to figure out the way around. I would recommend some of the quikLAB courses for people if they are interested, if like me you often fear of accidental costs on your own AWS instances following tutorials these are a good way to set an absolute celling on costs.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Final Breakout Session&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Covered ECS and containerisation. Some interesting talks about how to carry out Blue/Green deployments using ECS and some of the ways to implement service discovery in ECS. They also introduced &lt;a href=&#34;https://github.com/remind101/empire&#34;&gt;Empire&lt;/a&gt; which is an Open Source PaaS built on top of ECS with a Heroku compatible API which is very interesting and worthy of some further research.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Summary&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Would I go again? Yes, but I may not rush in for the morning keynote next time and schedule the breakout sessions a little more wisely as all my selections ended up overlapping.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Installing Kong for development on Mac</title>
@@ -230,18 +304,6 @@ Skype.exe                     2384 Console                    1    104,180 K
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;So go KILL that process and now IIS should be happy again.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://markyjones.github.io/blog/post/AWS%20Summit/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://markyjones.github.io/blog/post/AWS%20Summit/</guid>
-      <description>&lt;p&gt;Last week I attended the AWS Summit in London Excel. The day was a bit of a mixed bag with a fairly slow start in the keynote but some useful bits in the free Hands On session and the breakout sessions later in the afternoon.&lt;/p&gt;
-
-&lt;p&gt;As alluded too, the Keynote was a fairly self congratulatory, sales and marketing pitch by AWS but it was their event so fair play to them. I found some aspects interesting including an ucreditable guide on&lt;/p&gt;
 </description>
     </item>
     
