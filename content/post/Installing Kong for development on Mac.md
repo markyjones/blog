@@ -55,7 +55,8 @@ Or just clone it
 
 ```
 $ sudo mkdir /etc/kong
-$ sudo cp /usr/local/lib/luarocks/rocks/kong/0.8.3-0/conf/kong.yml /etc/kong/kong.yml
+$ sudo ln -s /usr/local/lib/luarocks/rocks/kong/0.8.3-0/conf/kong.yml
+cp /usr/local/lib/luarocks/rocks/kong/0.5.2-1/conf/kong.yml /etc/kong/kong.yml
 ```
 
 Start it again
