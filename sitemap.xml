@@ -3,13 +3,7 @@
   
   <url>
     <loc>https://markyjones.github.io/blog/</loc>
-    <lastmod>2016-07-09T19:11:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://markyjones.github.io/blog/post/test/</loc>
-    <lastmod>2016-07-09T19:11:00+00:00</lastmod>
+    <lastmod>2016-06-26T11:00:01+01:00</lastmod>
   </url>
   
   <url>
@@ -25,6 +19,10 @@
   <url>
     <loc>https://markyjones.github.io/blog/post/Skype%20attacks%20IIS/</loc>
     <lastmod>2012-06-01T11:00:01+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://markyjones.github.io/blog/post/AWS%20Summit/</loc>
   </url>
   
 </urlset>
