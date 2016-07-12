@@ -1,0 +1,3 @@
+Last week I attended the AWS Summit in London Excel. The day was a bit of a mixed bag with a fairly slow start in the keynote but some useful bits in the free Hands On session and the breakout sessions later in the afternoon.
+
+As alluded too, the Keynote was a fairly self congratulatory, sales and marketing pitch by AWS but it was their event so fair play to them. I found some aspects interesting including an ucreditable guide on  
