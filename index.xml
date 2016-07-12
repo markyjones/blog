@@ -64,8 +64,7 @@ $ sudo ln -s /usr/local/lib/luarocks/rocks/kong/0.8.3-0/conf/kong.yml /etc/kong/
 &lt;p&gt;Or just clone it&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ sudo mkdir /etc/kong
-$ sudo ln -s /usr/local/lib/luarocks/rocks/kong/0.8.3-0/conf/kong.yml
-cp /usr/local/lib/luarocks/rocks/kong/0.5.2-1/conf/kong.yml /etc/kong/kong.yml
+$ sudo cp /usr/local/lib/luarocks/rocks/kong/0.8.3-0/conf/kong.yml /etc/kong/kong.yml
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Start it again&lt;/p&gt;
@@ -230,18 +229,6 @@ Skype.exe                     2384 Console                    1    104,180 K
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;So go KILL that process and now IIS should be happy again.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://markyjones.github.io/blog/post/AWS%20Summit/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://markyjones.github.io/blog/post/AWS%20Summit/</guid>
-      <description>&lt;p&gt;Last week I attended the AWS Summit in London Excel. The day was a bit of a mixed bag with a fairly slow start in the keynote but some useful bits in the free Hands On session and the breakout sessions later in the afternoon.&lt;/p&gt;
-
-&lt;p&gt;As alluded too, the Keynote was a fairly self congratulatory, sales and marketing pitch by AWS but it was their event so fair play to them. I found some aspects interesting including an ucreditable guide on&lt;/p&gt;
 </description>
     </item>
     
