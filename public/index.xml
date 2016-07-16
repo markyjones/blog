@@ -6,8 +6,44 @@
     <description>Recent content on Marks blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 07 Jul 2016 11:00:01 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 16 Jul 2016 11:00:01 +0100</lastBuildDate>
     <atom:link href="https://markyjones.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Kong Headers and Information Leakage</title>
+      <link>https://markyjones.github.io/blog/post/Kong%20Headers%20and%20Information%20Leakage/</link>
+      <pubDate>Sat, 16 Jul 2016 11:00:01 +0100</pubDate>
+      
+      <guid>https://markyjones.github.io/blog/post/Kong%20Headers%20and%20Information%20Leakage/</guid>
+      <description>&lt;p&gt;I am currently researching the hardening the Kong API gatway to get it ready for some penetration tests and wanted to resolve the following issue of information leakage in the response headers.&lt;/p&gt;
+
+&lt;p&gt;As you can see Kong sends back a variety of headers that expose that the server is &amp;ldquo;Kong&amp;rdquo;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&#39;Server&#39;: &#39;Kong/x.x&#39;,
+&#39;Via&#39;: &#39;kong/x.x&#39;,
+&#39;X-kong-proxy-latency&#39;: &#39;0&#39;,
+&#39;X-kong-upstream-latency&#39;: &#39;79&#39;}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There appears to be 2 releated issues open on the Kong GitHub &lt;a href=&#34;https://github.com/Mashape/kong/issues/1315&#34;&gt;here&lt;/a&gt; and &lt;a href=&#34;https://github.com/Mashape/kong/issues/1009&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I initially thought that the Server header could be removed by using the nginx setting of setting &lt;a href=&#34;http://nginx.org/en/docs/http/ngx_http_core_module.html#server_tokens&#34;&gt;server tokens&lt;/a&gt; to false but found that these are explictly set in the Kong core &lt;code&gt;header_filter()&lt;/code&gt; &lt;a href=&#34;https://github.com/Mashape/kong/blob/master/kong/core/handler.lua&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Whilst there are open tickets to resolve the quickest way to patch this in that I found was to modify the  &lt;code&gt;/etc/kong/kong.yml&lt;/code&gt; file to modify the nginx/OpenResty configuration with 4 Lua statements to set these headers to nothing.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;        # Add additional response headers
+        header_filter_by_lua_block {
+           kong.header_filter()
+           ngx.header[&amp;quot;Server&amp;quot;] = nil
+           ngx.header[&amp;quot;Via&amp;quot;] = nil
+           ngx.header[&amp;quot;X-Kong-Proxy-Latency&amp;quot;] = nil
+           ngx.header[&amp;quot;X-Kong-Upstream-Latency&amp;quot;] = nil
+        }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The fix is likely to add a configuration setting to not set these headers in the first place inside the &lt;code&gt;header_filter()&lt;/code&gt; although they may still be useful metrics for logs or the StatsD plugin.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>AWS Summit 2016 London</title>
